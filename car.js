@@ -44,4 +44,21 @@ class Car {
     }
   }
 
-}
+  get yearOfManufacturing() {
+    return this.#yearOfManufacturing;
+  }
+
+  set maxSpeed(value) {
+    if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 100 && value < 300) {
+      this.#maxSpeed = value;
+    } else {
+      throw new Error(`"${value}" - и это максимальная скорость? Введите, пожалуйста, число от 100 до 300, но не включая 300 (в задании слово «включительно» отсутствует))).`)
+    }
+  }
+
+  get maxSpeed() {
+    return this.#maxSpeed + Car.SPEED_VALUE;
+  }
+};
+
+
