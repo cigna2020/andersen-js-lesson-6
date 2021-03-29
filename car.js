@@ -35,4 +35,13 @@ class Car {
   get model() {
     return this.#model
   }
+  set yearOfManufacturing(value) {
+    const currentYear = new Date().getFullYear();
+    if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 1900 && value <= currentYear) {
+      this.#yearOfManufacturing = value;
+    } else {
+      throw new Error(`"${value}" - не может быть годом производства автомобиля. Введите, пожалуйста, число от 1900 до ${currentYear} включительно.`)
+    }
+  }
+
 }
