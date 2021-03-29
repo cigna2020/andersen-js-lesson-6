@@ -12,7 +12,8 @@ class Car {
 
   static SPEED_VALUE = ' км/ч';
   static FUEL_VALUE = ' л.';
-  static FUEL_CONSUMPTION_VALUE = ' л/100км'
+  static FUEL_CONSUMPTION_VALUE = ' л/100км';
+  static DISTANCE_VALUE = ' км.';
 
   set brand(value) {
     if (typeof (value) === 'string' && value.length <= 50 && value.length > 0) {
@@ -86,15 +87,16 @@ class Car {
     return this.#fuelConsumption + Car.FUEL_CONSUMPTION_VALUE;
   }
 
-  set currentFuelVolume(value) {
-    if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 0) {
-      this.#currentFuelVolume = value;
-    } else {
-      throw new Error(`"${value}" - не может быть использовано в качестве топлива. Введите, пожалуйста, число от 0.`)
-    }
-  }
-
   get currentFuelVolume() {
     return this.#currentFuelVolume + Car.FUEL_VALUE;
   }
+
+  get isStarted() {
+    return this.#isStarted;
+  }
+
+  get mileage() {
+    return this.#mileage + Car.DISTANCE_VALUE;
+  }
+
 };
