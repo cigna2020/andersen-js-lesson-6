@@ -38,6 +38,7 @@ class Car {
   get model() {
     return this.#model
   }
+
   set yearOfManufacturing(value) {
     const currentYear = new Date().getFullYear();
     if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 1900 && value <= currentYear) {
@@ -76,10 +77,10 @@ class Car {
   }
 
   set fuelConsumption(value) {
-    if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 0) {
+    if (typeof (value) === 'number' && !Object.is(value, NaN) && value > 0) {
       this.#fuelConsumption = value;
     } else {
-      throw new Error(`"${value}" - не может быть использовано в качестве топлива. Введите, пожалуйста, число от 5 до 20, но не включая 20 (в задании слово «включительно» отсутствует))).`)
+      throw new Error(`"${value}" - не может быть использовано в качестве количества топлива.`)
     }
   }
 
@@ -117,10 +118,10 @@ class Car {
 
   fillUpGasTank(value) {
     if (typeof (value) !== 'number' || Object.is(value, NaN) || value <= 0) {
-      throw new Error('Неверное количество топлива для заправки')
+      throw new Error('Неверное количество топлива для заправки');
     }
     if (this.#currentFuelVolume + value > this.#maxFuelVolume) {
-      throw new Error('Топливный бак переполнен')
+      throw new Error('Топливный бак переполнен');
     } else {
       this.#currentFuelVolume += value;
     }
@@ -128,25 +129,27 @@ class Car {
 
   drive(speed, time) {
     if (typeof (speed) !== 'number' || Object.is(speed, NaN) || speed <= 0) {
-      throw new Error('Неверная скорость')
+      throw new Error('Неверная скорость');
     }
     if (typeof (time) !== 'number' || Object.is(time, NaN) || time <= 0) {
-      throw new Error('Неверное количество часов')
+      throw new Error('Неверное количество часов');
     }
     if (speed > this.#maxSpeed) {
-      throw new Error('Машина не может ехать так быстро')
+      throw new Error('Машина не может ехать так быстро');
     }
     if (!this.#isStarted) {
-      throw new Error('Машина должна быть заведена, чтобы ехать')
+      throw new Error('Машина должна быть заведена, чтобы ехать');
     }
     if (!this.#fuelConsumption) {
-      throw new Error('Укажите fuelConsumption. Недостаточно данных для расчета!')
+      throw new Error('Укажите fuelConsumption. Недостаточно данных для расчета!');
     }
     if (this.#currentFuelVolume < ((this.#fuelConsumption / 100) * (speed * time))) {
-      throw new Error('Недостаточно топлива')
+      throw new Error('Недостаточно топлива');
     } else {
       this.#mileage += (speed * time);
-      this.#currentFuelVolume -= (speed * time) * (this.#fuelConsumption / 100)
+      this.#currentFuelVolume -= (speed * time) * (this.#fuelConsumption / 100);
     }
   }
 };
+
+module.exports = Car;
