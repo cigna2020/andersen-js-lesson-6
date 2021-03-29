@@ -114,4 +114,15 @@ class Car {
       throw new Error('Машина ещё не заведена');
     }
   }
-}
+
+  fillUpGasTank(value) {
+    if (typeof (value) !== 'number' || Object.is(value, NaN) || value <= 0) {
+      throw new Error('Неверное количество топлива для заправки')
+    }
+    if (this.#currentFuelVolume + value > this.#maxFuelVolume) {
+      throw new Error('Топливный бак переполнен')
+    } else {
+      this.#currentFuelVolume += value;
+    }
+  }
+};
