@@ -11,6 +11,7 @@ class Car {
   #mileage = 0;
 
   static SPEED_VALUE = ' км/ч';
+  static FUEL_VALUE = ' л.'
 
   set brand(value) {
     if (typeof (value) === 'string' && value.length <= 50 && value.length > 0) {
@@ -59,6 +60,17 @@ class Car {
   get maxSpeed() {
     return this.#maxSpeed + Car.SPEED_VALUE;
   }
+
+  set maxFuelVolume(value) {
+    if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 5 && value < 20) {
+      this.#maxFuelVolume = value;
+    } else {
+      throw new Error(`"${value}" - не может быть использовано в качестве топлива. Введите, пожалуйста, число от 5 до 20, но не включая 20 (в задании слово «включительно» отсутствует))).`)
+    }
+  }
+
+  get maxFuelVolume() {
+    return this.#maxFuelVolume + Car.FUEL_VALUE;
+  }
+
 };
-
-
