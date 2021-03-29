@@ -23,4 +23,16 @@ class Car {
   get brand() {
     return this.#brand
   }
+
+  set model(value) {
+    if (typeof (value) === 'string' && value.length <= 50 && value.length > 0) {
+      this.#model = value;
+    } else {
+      throw new Error(`"${value}" - это не модель автомобиля. Введите, пожалуйста, строку с количеством символов от 1 до 50 включительно.`)
+    }
+  }
+
+  get model() {
+    return this.#model
+  }
 }
