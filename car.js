@@ -99,4 +99,19 @@ class Car {
     return this.#mileage + Car.DISTANCE_VALUE;
   }
 
-};
+  start() {
+    if (!this.#isStarted) {
+      this.#isStarted = true;
+    } else {
+      throw new Error('Машина уже заведена');
+    }
+  }
+
+  shutDownEngine() {
+    if (this.#isStarted) {
+      this.#isStarted = false;
+    } else {
+      throw new Error('Машина ещё не заведена');
+    }
+  }
+}
