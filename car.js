@@ -125,4 +125,28 @@ class Car {
       this.#currentFuelVolume += value;
     }
   }
+
+  drive(speed, time) {
+    if (typeof (speed) !== 'number' || Object.is(speed, NaN) || speed <= 0) {
+      throw new Error('Неверная скорость')
+    }
+    if (typeof (time) !== 'number' || Object.is(time, NaN) || time <= 0) {
+      throw new Error('Неверное количество часов')
+    }
+    if (speed > this.#maxSpeed) {
+      throw new Error('Машина не может ехать так быстро')
+    }
+    if (!this.#isStarted) {
+      throw new Error('Машина должна быть заведена, чтобы ехать')
+    }
+    if (!this.#fuelConsumption) {
+      throw new Error('Укажите fuelConsumption. Недостаточно данных для расчета!')
+    }
+    if (this.#currentFuelVolume < ((this.#fuelConsumption / 100) * (speed * time))) {
+      throw new Error('Недостаточно топлива')
+    } else {
+      this.#mileage += (speed * time);
+      this.#currentFuelVolume -= (speed * time) * (this.#fuelConsumption / 100)
+    }
+  }
 };
