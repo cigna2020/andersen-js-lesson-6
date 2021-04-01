@@ -53,10 +53,10 @@ class Car {
   }
 
   set maxSpeed(value) {
-    if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 100 && value < 300) {
+    if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 100 && value <= 300) {
       this.#maxSpeed = value;
     } else {
-      throw new Error(`"${value}" - и это максимальная скорость? Введите, пожалуйста, число от 100 до 300, но не включая 300 (в задании слово «включительно» отсутствует))).`)
+      throw new Error(`"${value}" - и это максимальная скорость? Введите, пожалуйста, число от 100 до 300.`)
     }
   }
 
@@ -65,10 +65,10 @@ class Car {
   }
 
   set maxFuelVolume(value) {
-    if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 5 && value < 20) {
+    if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 5 && value <= 20) {
       this.#maxFuelVolume = value;
     } else {
-      throw new Error(`"${value}" - не может быть использовано в качестве топлива. Введите, пожалуйста, число от 5 до 20, но не включая 20 (в задании слово «включительно» отсутствует))).`)
+      throw new Error(`"${value}" - не может быть использовано в качестве топлива. Введите, пожалуйста, число от 5 до 20.`)
     }
   }
 
