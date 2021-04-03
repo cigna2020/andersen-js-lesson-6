@@ -6,9 +6,53 @@ class Car {
   #maxSpeed;
   #maxFuelVolume;
   #fuelConsumption;
-  #currentFuelVolume = 0;
-  #isStarted = false;
+  #currentFuelVolume;
+  #isStarted;
   #mileage = 0;
+
+  constructor(brand, model, yearOfManufacturing, maxSpeed, maxFuelVolume,
+    fuelConsumption, currentFuelVolume = 0, isStarted = false) {
+    this.#brand = brand;
+    this.#model = model;
+    this.#yearOfManufacturing = yearOfManufacturing;
+    this.#maxSpeed = maxSpeed;
+    this.#maxFuelVolume = maxFuelVolume;
+    this.#fuelConsumption = fuelConsumption;
+    this.#currentFuelVolume = currentFuelVolume;
+    this.#isStarted = isStarted;
+
+    if (typeof (brand) !== 'string' || brand.length > 50 || brand.length <= 0) {
+      throw new Error(`"${brand}" - это не автомобильный бренд. Введите, пожалуйста, строку с количеством символов от 1 до 50 включительно.`);
+    }
+
+    if (typeof (model) !== 'string' || model.length > 50 || model.length <= 0) {
+      throw new Error(`"${model}" - это не модель автомобиля. Введите, пожалуйста, строку с количеством символов от 1 до 50 включительно.`);
+    }
+
+    if (typeof (yearOfManufacturing) !== 'number' || Object.is(yearOfManufacturing, NaN) || yearOfManufacturing < 1900 || yearOfManufacturing > new Date().getFullYear()) {
+      throw new Error(`"${yearOfManufacturing}" - не может быть годом производства автомобиля. Введите, пожалуйста, число от 1900 до ${new Date().getFullYear()} включительно.`);
+    }
+
+    if (typeof (maxSpeed) !== 'number' || Object.is(maxSpeed, NaN) || maxSpeed < 100 || maxSpeed > 300) {
+      throw new Error(`"${maxSpeed}" - и это максимальная скорость? Введите, пожалуйста, число от 100 до 300.`);
+    }
+
+    if (typeof (maxFuelVolume) !== 'number' || Object.is(maxFuelVolume, NaN) || maxFuelVolume < 5 || maxFuelVolume > 20) {
+      throw new Error(`"${maxFuelVolume}" - не может быть использовано в качестве топлива. Введите, пожалуйста, число от 5 до 20.`);
+    }
+
+    if (typeof (fuelConsumption) !== 'number' || Object.is(fuelConsumption, NaN) || fuelConsumption <= 0) {
+      throw new Error(`"${fuelConsumption}" - не может быть использовано в качестве количества топлива.`);
+    }
+
+    if (typeof (currentFuelVolume) !== 'number' || Object.is(currentFuelVolume, NaN) || currentFuelVolume <= 0) {
+      throw new Error('Неверное количество топлива для заправки');
+    }
+
+    if (this.currentFuelVolume > this.maxFuelVolume) {
+      throw new Error('Топливный бак переполнен');
+    }
+  }
 
   static SPEED_VALUE = ' км/ч';
   static FUEL_VALUE = ' л.';
@@ -19,7 +63,7 @@ class Car {
     if (typeof (value) === 'string' && value.length <= 50 && value.length > 0) {
       this.#brand = value;
     } else {
-      throw new Error(`"${value}" - это не автомобильный бренд. Введите, пожалуйста, строку с количеством символов от 1 до 50 включительно.`)
+      throw new Error(`"${value}" - это не автомобильный бренд. Введите, пожалуйста, строку с количеством символов от 1 до 50 включительно.`);
     }
   }
 
@@ -31,7 +75,7 @@ class Car {
     if (typeof (value) === 'string' && value.length <= 50 && value.length > 0) {
       this.#model = value;
     } else {
-      throw new Error(`"${value}" - это не модель автомобиля. Введите, пожалуйста, строку с количеством символов от 1 до 50 включительно.`)
+      throw new Error(`"${value}" - это не модель автомобиля. Введите, пожалуйста, строку с количеством символов от 1 до 50 включительно.`);
     }
   }
 
@@ -44,7 +88,7 @@ class Car {
     if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 1900 && value <= currentYear) {
       this.#yearOfManufacturing = value;
     } else {
-      throw new Error(`"${value}" - не может быть годом производства автомобиля. Введите, пожалуйста, число от 1900 до ${currentYear} включительно.`)
+      throw new Error(`"${value}" - не может быть годом производства автомобиля. Введите, пожалуйста, число от 1900 до ${currentYear} включительно.`);
     }
   }
 
@@ -56,7 +100,7 @@ class Car {
     if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 100 && value <= 300) {
       this.#maxSpeed = value;
     } else {
-      throw new Error(`"${value}" - и это максимальная скорость? Введите, пожалуйста, число от 100 до 300.`)
+      throw new Error(`"${value}" - и это максимальная скорость? Введите, пожалуйста, число от 100 до 300.`);
     }
   }
 
@@ -68,7 +112,7 @@ class Car {
     if (typeof (value) === 'number' && !Object.is(value, NaN) && value >= 5 && value <= 20) {
       this.#maxFuelVolume = value;
     } else {
-      throw new Error(`"${value}" - не может быть использовано в качестве топлива. Введите, пожалуйста, число от 5 до 20.`)
+      throw new Error(`"${value}" - не может быть использовано в качестве топлива. Введите, пожалуйста, число от 5 до 20.`);
     }
   }
 
@@ -80,7 +124,7 @@ class Car {
     if (typeof (value) === 'number' && !Object.is(value, NaN) && value > 0) {
       this.#fuelConsumption = value;
     } else {
-      throw new Error(`"${value}" - не может быть использовано в качестве количества топлива.`)
+      throw new Error(`"${value}" - не может быть использовано в качестве количества топлива.`);
     }
   }
 
